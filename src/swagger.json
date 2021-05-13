@@ -1,0 +1,341 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Fourth Challenge Documentation",
+    "description": "This is an API from fourth challenge of ignite - NodeJS",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Alexandre Kimura",
+      "email": "alexandremkimura@hotmail.com",
+      "url": "https://www.linkedin.com/in/alexandre-mikio-kimura-fukano/"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a user",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Fulano",
+                  "email": "fulano@teste.com.br"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "date"
+                    },
+                    "updated_at": {
+                      "type": "date"
+                    }
+                  },
+                  "example": {
+                    "id": "bca605ff-388b-4c0a-a570-e69a53a62af5",
+                    "name": "Fulano",
+                    "email": "fulano@teste.com.br",
+                    "admin": false,
+                    "created_at": "2021-05-12T19:42:16.686Z",
+                    "updated_at": "2021-05-12T19:42:16.686Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "message"
+                    }
+                  },
+                  "example": {
+                    "error": "User already exist"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List all users",
+        "description": "List all users",
+        "parameters": [{
+          "name": "user_id",
+          "in": "header",
+          "description": "User id",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties":{
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "date"
+                      },
+                      "updated_at": {
+                        "type": "date"
+                      }
+                    },
+                    "example": [
+                      {
+                        "id": "78bd3321-32d0-46e9-90b9-e1278aa8e493",
+                        "admin": true,
+                        "created_at": "2021-05-13T11:46:56.575Z",
+                        "updated_at": "2021-05-13T11:47:04.251Z",
+                        "name": "fulano",
+                        "email": "fulano@teste.com.br"
+                      },
+                      {
+                        "id": "84bcff02-6d5e-438c-b705-ee72df48567b",
+                        "admin": false,
+                        "created_at": "2021-05-13T11:47:12.443Z",
+                        "updated_at": "2021-05-13T11:47:12.443Z",
+                        "name": "fulano2",
+                        "email": "fulano2@teste.com.br"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User isn`t an admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "message"
+                    }
+                  },
+                  "example": {
+                    "error": "User isn`t an admin"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "List a user by ID",
+        "description": "List a user by user_id",
+        "parameters": [{
+          "name": "user_id",
+          "in": "path",
+          "description": "User ID",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "date"
+                    },
+                    "updated_at": {
+                      "type": "date"
+                    }
+                  },
+                  "example": {
+                    "id": "b02d173e-0863-441a-824b-7a281032cfdb",
+                    "name": "fulano",
+                    "email": "fulano@teste.com.br",
+                    "admin": false,
+                    "created_at": "2021-05-13T12:02:33.218Z",
+                    "updated_at": "2021-05-13T12:02:33.218Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "message"
+                    }
+                  },
+                  "example": {
+                    "error": "User not found!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch":{
+        "tags": ["Users"],
+        "summary": "Turn a user in admin",
+        "description": "Received a user_id and turn a user in admin",
+        "parameters": [{
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format":"uuid"
+            }
+        }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "admin": {
+                          "type": "boolean"
+                        },
+                        "created_at": {
+                          "type": "date"
+                        },
+                        "updated_at": {
+                          "type": "date"
+                        }
+                      },
+                      "example": {
+                        "id": "cc941e5b-0f15-4d3c-a347-07b2692e6430",
+                        "name": "fulano",
+                        "email": "fulano@teste.com.br",
+                        "admin": true,
+                        "created_at": "2021-05-13T12:15:17.507Z",
+                        "updated_at": "2021-05-13T12:15:31.013Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "message"
+                    }
+                  },
+                  "example": {
+                    "error": "User not found!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
